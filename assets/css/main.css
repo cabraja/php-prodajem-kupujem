@@ -1,0 +1,59 @@
+@font-face {
+    font-family: Archivo;
+    src: url("../fonts/Archivo-VariableFont_wdth,wght.ttf");
+}
+
+@font-face {
+    font-family: ArchivoItalic;
+    src: url("../fonts/Archivo-Italic-VariableFont_wdth,wght.ttf");
+}
+
+body{
+    font-family: Archivo !important;
+}
+
+/*   ALERTS   */
+@keyframes alert {
+    from{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to{
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+.alert-animation{
+    animation: alert 0.6s ease-in-out forwards;
+}
+
+/* HOME PAGE */
+#landing{
+    background-image: url("../images/website/landing.jpg");
+    background-position: bottom;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#landing #landing-content{
+    width: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(3px);
+    background-color: rgba(244,244,244,0.62) ;
+    z-index: 5;
+}
+.icons-nav{
+    font-size: 22px;
+    padding-right: 12px;
+}
+.icons-nav i{
+    margin: 0px 4px;
+    color: black;
+    cursor: pointer;
+}
+.icons-nav i:hover{
+    color: dodgerblue;
+}
