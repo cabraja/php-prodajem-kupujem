@@ -1,5 +1,9 @@
 <div class="container my-5">
 
+    <div class="alert alert-info alert-animation mb-4" role="alert" id="adAlert" style="display: none">
+
+    </div>
+
     <h2 class="fw-bold">Dodajte Oglas</h2>
     <hr />
 

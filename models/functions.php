@@ -79,7 +79,36 @@
         $prepare = $conn->prepare($query);
         return $prepare->execute([$name, $price,$imageName,$description,$id_cat, $id_user]);
 
+    }
+    function getAds($page,$id_category,$sort){
+        global $conn;
+        $offset = $page*6;
 
+        $query = "SELECT a.id,ad_name,price,image_name,category_name,created_at FROM ads a INNER JOIN categories c ON a.id_category=c.id";
 
+        if($id_category > 0){
+            $query .= " WHERE a.id_category = ".$id_category;
+        }
+
+        switch ($sort){
+            case 1: $query .= " ORDER BY created_at DESC"; break;
+            case 2: $query .= " ORDER BY created_at ASC"; break;
+            case 3: $query .= " ORDER BY price ASC"; break;
+            case 4: $query .= " ORDER BY price DESC"; break;
+        }
+
+        $query .= " LIMIT 6 OFFSET ".$offset;
+
+        return $conn->query($query)->fetchAll();
+    }
+    function getAdCount($id_category){
+        global $conn;
+
+        $query = "SELECT COUNT(*) as count FROM ads";
+
+        if($id_category > 0){
+            $query .= " WHERE id_category = ".$id_category;
+        }
+        return $conn->query($query)->fetch();
     }
 ?>
