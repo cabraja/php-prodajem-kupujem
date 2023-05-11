@@ -31,9 +31,15 @@
 
         <div class="col-12 col-md-9">
             <div class="row justify-content-between">
-                <div class="col-12 col-md-6 mb-2 d-flex flex-row align-items-center">
-                    <input type="email" class="form-control" id="tbSearch" placeholder="name@example.com">
+                <div class="col-12 col-md-6 mb-2 d-flex flex-row align-items-center" id="search-wrapper">
+                    <input type="email" class="form-control" id="tbSearch" placeholder="Pretražite ovde...">
                     <button class="btn btn-primary px-4" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+                    <div id="search-results">
+                        <ul id="search-results-list">
+
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="col-12 col-md-3 mb-2">
@@ -53,7 +59,7 @@
                     foreach ($ads as $ad):
                         ?>
                         <div class="col-12 col-lg-4 col-md-6 mt-3">
-                            <div class="card" style="100%">
+                            <div class="card shadow" style="100%">
                                 <img src="assets/images/uploaded/small/<?=$ad->image_name?>" class="card-img-top" alt="<?=$ad->ad_name?>">
                                 <div class="card-body">
                                     <p class="card-text mb-0 text-secondary">Kategorija: <?=$ad->category_name?></p>

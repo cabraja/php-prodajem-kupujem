@@ -43,8 +43,10 @@ $(document).ready(function (){
 
     //     CHECK IMAGE
         if(!image[0].files[0]){
+            errorNum++;
             image.next().html("Izaberite fotografiju.");
         }else if(!allowedTypes.includes(image[0].files[0]['type'])){
+            errorNum++;
             image.next().html("Dozvoljeni formati su JPG, JPEG i PNG.");
         }
         else{
@@ -53,6 +55,7 @@ $(document).ready(function (){
 
     //     CHECK DESCRIPTION
         if(desc.val().length < 1){
+            errorNum++;
             desc.next().html("Unesite opis.");
         }else{
             desc.next().html("");
@@ -108,6 +111,22 @@ $(document).ready(function (){
         fetchAjaxCall(page,categoryId,sort)
     })
 
+//     SEARCH
+    $("#btnSearch").on("click", function (){
+        const keyword = $("#tbSearch").val();
+
+        let div = document.getElementById("search-results");
+        div.style.display = "block";
+        let list = document.getElementById("search-results-list");
+        list.innerHTML = "";
+
+        if(keyword.length < 2){
+            list.innerHTML += "Unesite barem 2 karaktera za pretragu.";
+        }else{
+            searchAjaxCall(keyword)
+        }
+    })
+
 })
 
 
@@ -124,7 +143,7 @@ const printAds = (ads,page,count) =>{
             let dateString = `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`;
             div.innerHTML += `
             <div class="col-12 col-lg-4 col-md-6 mt-3">
-                <div class="card" style="100%">
+                <div class="card shadow" style="100%">
                     <img src="assets/images/uploaded/small/${ad.image_name}" class="card-img-top" alt="${ad.ad_name}">
                     <div class="card-body">
                         <p class="card-text mb-0 text-secondary">Kategorija: ${ad.category_name}</p>
@@ -163,6 +182,26 @@ const printAds = (ads,page,count) =>{
 
 }
 
+const printSearchResults = (ads) => {
+    let div = document.getElementById("search-results-list");
+
+    div.innerHTML = "";
+    if(ads.length > 0){
+        ads.forEach(ad => {
+            div.innerHTML += `
+            <li><a class="text-dark" href="index.php?page=ad&id=${ad.id}">${ad.ad_name}</a></li>
+        `;
+        })
+    }else{
+        div.innerHTML = `
+            <li>Nema rezultata.</li>
+        `;
+    }
+
+}
+
+
+// AJAX
 const fetchAjaxCall = (page,categoryId,sort) => {
 
     // PRINT SPINNER
@@ -186,6 +225,34 @@ const fetchAjaxCall = (page,categoryId,sort) => {
         dataType:'JSON',
         success: function (res){
             printAds(res.ads,page,res.count)
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
+}
+
+const searchAjaxCall = (keyword) => {
+
+    // PRINT SPINNER
+    let div = document.getElementById("search-results-list");
+    div.innerHTML = `
+        <div class="d-flex justify-content-center my-2">
+          <div class="spinner-border" role="status" style="width: 1.5rem; height: 1.5rem;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+    `;
+
+    $.ajax({
+        url: 'models/ads/search.php',
+        method: 'GET',
+        data:{
+            keyword: keyword
+        },
+        dataType:'JSON',
+        success: function (res){
+            printSearchResults(res.ads);
         },
         error: function (err){
             console.log(err)

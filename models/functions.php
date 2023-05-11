@@ -111,4 +111,24 @@
         }
         return $conn->query($query)->fetch();
     }
+
+    function searchAds($keyword){
+        global $conn;
+
+        $query = "SELECT * FROM ads WHERE ad_name LIKE '%".$keyword."%' LIMIT 5";
+        return $conn->query($query)->fetchAll();
+    }
+
+//    SINGLE AD PAGE
+
+    function getAd($id){
+        global $conn;
+
+        $query = "SELECT a.id,ad_name,price,image_name,description,a.created_at,c.category_name,u.username,u.email,u.phone,u.created_at FROM ads a INNER JOIN categories c ON a.id_category = c.id INNER JOIN users u ON a.id_user = u.id WHERE a.id = :id";
+
+        $prepare = $conn->prepare($query);
+        $prepare->bindParam(":id",$id);
+        $prepare->execute();
+        return $prepare->fetch();
+    }
 ?>

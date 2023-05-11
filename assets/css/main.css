@@ -67,3 +67,63 @@ body{
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
 }
+
+#search-wrapper{
+    position: relative;
+}
+#search-results{
+    z-index: 10;
+    position: absolute;
+    background-color: rgba(244,244,244,0.90);
+    backdrop-filter: blur(3px);
+    top: 100%;
+    display: none;
+    padding: 0px;
+}
+#search-results ul{
+    margin-bottom: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+#search-results ul li{
+    width: 100%;
+    border: 1px solid gainsboro;
+}
+
+#search-results ul li a{
+    display: block;
+    padding: 8px 30px;
+    width: 100%;
+    text-decoration: none;
+    transition: .1s ease-in-out;
+}
+#search-results ul li a:hover{
+    background-color: #ffde7c;
+}
+
+/*SINGLE AD*/
+.price-div{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+.accordion-body ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none !important;
+}
+
+.accordion-body ul li{
+    margin-bottom: 6px;
+    margin-top: 6px;
+}
+.accordion-body ul li i{
+    margin-right: 8px;
+    color: dodgerblue;
+    font-size: 20px;
+}
+@media only screen and (min-width: 992px){
+    #ad-column-info{
+        padding-right: 30px;
+    }
+}

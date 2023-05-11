@@ -23,6 +23,8 @@
             case 'profile':
                 if(isset($_SESSION['user'])) include ('views/pages/profile.php');
                 else include ('views/pages/login.php');break;
+            case 'ad':
+                include ('views/pages/singleAd.php');break;
             default: include ('views/pages/home.php');
         }
     }else{
