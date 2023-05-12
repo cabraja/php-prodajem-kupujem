@@ -131,4 +131,26 @@
         $prepare->execute();
         return $prepare->fetch();
     }
+
+    function followAd($id_ad,$id_user,$isFollowed){
+        global $conn;
+
+        $query = "";
+        if($isFollowed == "true"){
+            $query = "INSERT INTO adfollowers(id_ad,id_user) VALUES(?,?)";
+        }else{
+            $query = "DELETE FROM adfollowers WHERE id_ad=? AND id_user=?";
+        }
+
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$id_ad, $id_user]);
+    }
+
+    function checkIfAdIsFollowed($id_ad,$id_user){
+        global $conn;
+
+        $query = "SELECT * FROM adfollowers WHERE id_ad=? AND id_user=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$id_ad, $id_user]);
+    }
 ?>

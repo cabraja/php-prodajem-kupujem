@@ -17,7 +17,7 @@
     else:
     ?>
     <div class="row">
-        <div class="col-12 col-lg-6" id="ad-column-info">
+        <div class="col-12 col-lg-6 mb-4" id="ad-column-info">
             <h2 class="fw-bold mb-0"><?=$ad->ad_name?></h2>
             <small class="text-secondary fs-6">Oglas postavljen: <?=date('j.n.Y',strtotime($ad->created_at))?></small>
             <hr class="mt-2"/>
@@ -47,14 +47,28 @@
                     </div>
                 </div>
             </div>
+
+            <?php
+            if(isset($_SESSION['user']) && $isAdFollowed = checkIfAdIsFollowed($ad->id,$_SESSION['user']->id)):
+                ?>
+                <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-solid fa-heart"></i> <span id="followBtnText">Pratite ovaj oglas</span></button>
+            <?php
+            else:
+            ?>
+                <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-regular fa-heart"></i> <span id="followBtnText">Zapratite ovaj oglas</span></button>
+            <?php
+            endif;
+            ?>
         </div>
 
         <div class="col-12 col-lg-6">
-            <img src="assets/images/uploaded/large/<?=$ad->image_name?>" width="100%"/>
+            <img class="border shadow-sm" src="assets/images/uploaded/large/<?=$ad->image_name?>" width="100%"/>
         </div>
     </div>
 
     <?php
     endif;
     ?>
+
+    <script src="assets/js/singleAd.js"></script>
 </div>
