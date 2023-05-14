@@ -29,9 +29,10 @@
         }
     }else{
         include ('views/pages/home.php');
+        $page = "home";
     }
 
     include ('views/fixed/footer.php');
 
-    logPageVisit();
+    logPageVisit($page);
 ?>

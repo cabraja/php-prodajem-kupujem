@@ -9,8 +9,35 @@
     }
 
 //    LOGS
-    function logPageVisit(){
-        $page = $_SERVER['REQUEST_URI'];
+    function logPageVisit($page){
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $date = date("d. m. Y. h:i:s");
+        $time = time();
+        $user = "Unauthorized user";
+
+        if(isset($_SESSION['user'])){
+            $user = $_SESSION['user']->role;
+        }
+
+        $data = $page." | ".$date." | ".$ip." | ".$user."\n";
+
+        $file = fopen(LOG_VISITS, "a");
+        $write = fwrite($file, $data);
+        if($write){
+            fclose($file);
+        }
+    }
+
+    function logLogin($username, $email){
+        $date = date("d. m. Y. h:i:s");
+
+        $data = $username." | ".$email." | ".$date."\n";
+
+        $file = fopen(LOG_LOGINS, "a");
+        $write = fwrite($file, $data);
+        if($write){
+            fclose($file);
+        }
     }
 
 //    AUTHORIZATION
@@ -149,8 +176,18 @@
     function checkIfAdIsFollowed($id_ad,$id_user){
         global $conn;
 
-        $query = "SELECT * FROM adfollowers WHERE id_ad=? AND id_user=?";
+        $query = "SELECT COUNT(*) as count FROM adfollowers WHERE id_ad=? AND id_user=?";
         $prepare = $conn->prepare($query);
-        return $prepare->execute([$id_ad, $id_user]);
+        $prepare->execute([$id_ad, $id_user]);
+        return $prepare->fetch();
+    }
+
+    function getFollowedAds($id_user){
+        global $conn;
+
+        $query = "SELECT a.id,ad_name,af.date,category_name FROM ads a INNER JOIN adfollowers af On a.id=af.id_ad INNER JOIN categories c ON a.id_category = c.id WHERE af.id_user=?";
+        $prepare = $conn->prepare($query);
+        $prepare->execute([$id_user]);
+        return $prepare->fetchAll();
     }
 ?>

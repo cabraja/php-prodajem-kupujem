@@ -65,8 +65,42 @@
         <button type="button" id="insertBtn" class="btn btn-primary px-5">Potvrdi</button>
     </form>
 
+<!--    OGLASI KOJE KORISNIK PRATI-->
     <h2 class="fw-bold mt-5">Oglasi Koje Pratite</h2>
     <hr />
+
+    <div class="row" id="followedAds">
+
+        <?php
+        $ads = getFollowedAds($_SESSION['user']->id);
+
+        foreach ($ads as $ad):
+        ?>
+            <div class="col-12 my-2 border rounded py-2 px-4">
+                <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+                    <div class="pe-3">
+                        <h6 class="mb-0"><span class="text-secondary">Naziv:</span> <?=$ad->ad_name?> | <span class="text-secondary">Kategorija:</span> <?=$ad->category_name?> | <span class="text-secondary">Oglas zapraćen:</span> <?=date('j.n.Y',strtotime($ad->date))?></h6>
+                    </div>
+
+                    <button data-id="<?=$ad->id?>" type="button" class="btn btn-outline-danger unfollowBtn"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+        <?php
+        endforeach;
+        ?>
+
+        <?php
+        if(count($ads) == 0):
+        ?>
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">
+                    Ne pratite ni jedan oglas.
+                </div>
+            </div>
+        <?php
+        endif;
+        ?>
+    </div>
 </div>
 
 <script src="assets/js/adds.js"></script>

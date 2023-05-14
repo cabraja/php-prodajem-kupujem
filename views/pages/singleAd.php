@@ -49,13 +49,23 @@
             </div>
 
             <?php
-            if(isset($_SESSION['user']) && $isAdFollowed = checkIfAdIsFollowed($ad->id,$_SESSION['user']->id)):
+            if(isset($_SESSION['user'])):
+            ?>
+                <?php
+                if(checkIfAdIsFollowed($ad->id,$_SESSION['user']->id)->count):
+                    ?>
+                    <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-solid fa-heart"></i> <span id="followBtnText">Pratite ovaj oglas</span></button>
+                <?php
+                else:
+                    ?>
+                    <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-regular fa-heart"></i> <span id="followBtnText">Zapratite ovaj oglas</span></button>
+                <?php
+                endif;
                 ?>
-                <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-solid fa-heart"></i> <span id="followBtnText">Pratite ovaj oglas</span></button>
             <?php
             else:
             ?>
-                <button type="button" data-id="<?=$ad->id?>" id="followBtn" class="btn btn-outline-danger border-0 mt-4"><i id="followIcon" class="fa-regular fa-heart"></i> <span id="followBtnText">Zapratite ovaj oglas</span></button>
+                <h6 class="mt-4"><span class="badge bg-info">Savet</span> Ulogujte se da bi ste pratili ovaj oglas</h6>
             <?php
             endif;
             ?>

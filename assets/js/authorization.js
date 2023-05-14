@@ -135,6 +135,7 @@ $(document).ready(function (){
                     const alert = $("#loginAlert");
                     alert.css("display", "block");
                     alert.html(err);
+                    console.log(err)
                 }
             })
 

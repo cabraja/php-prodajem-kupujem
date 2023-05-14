@@ -53,6 +53,14 @@
             </ul>
             <span class="navbar-text">
             <div class="d-flex flex-row align-items-center justify-content-center icons-nav">
+                <?php
+                if(isset($_SESSION['user'])):
+                ?>
+                    <a href="index.php?page=dashboard" class="btn btn-outline-dark link-btn me-3">Admin Panel</a>
+                <?php
+                endif;
+                ?>
+
                 <i class="fa-solid fa-earth-europe"></i>
                 <i class="fa-brands fa-facebook"></i>
                 <i class="fa-brands fa-instagram"></i>

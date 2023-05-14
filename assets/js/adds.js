@@ -121,10 +121,35 @@ $(document).ready(function (){
         list.innerHTML = "";
 
         if(keyword.length < 2){
-            list.innerHTML += "Unesite barem 2 karaktera za pretragu.";
+            list.innerHTML += "<li><a>Unesite barem 2 karaktera za pretragu.</a></li>";
         }else{
             searchAjaxCall(keyword)
         }
+    })
+
+//     REMOVE FOLLOWED AD
+    $(".unfollowBtn").on('click', function (e){
+        let id = e.target.dataset.id;
+        if(!id){
+            id = e.target.parentElement.dataset.id;
+        }
+
+        $.ajax({
+            url: 'models/ads/follow.php',
+            method: 'POST',
+            dataType: 'JSON',
+            data: {
+                adId:id,
+                isFollowed: false
+            },
+            success: function (res){
+                console.log(res)
+                fetchAndPrintFollowedAds();
+            },
+            error: function (err){
+                console.log(err)
+            }
+        })
     })
 
 })
@@ -194,10 +219,56 @@ const printSearchResults = (ads) => {
         })
     }else{
         div.innerHTML = `
-            <li>Nema rezultata.</li>
+            <li><a>Nema rezultata.</a></li>
         `;
     }
+}
 
+const fetchAndPrintFollowedAds = () => {
+    $.ajax({
+        url: 'models/ads/fetchFollowed.php',
+        method: 'GET',
+        dataType: 'JSON',
+        success: function (res){
+            const div = document.getElementById("followedAds");
+
+            div.innerHTML = "";
+
+            if(res.ads.length > 0){
+                res.ads.forEach(ad => {
+
+                    // FORMAT DATE
+                    let date = new Date(ad.date);
+                    let dateString = `${date.getDate()}.${date.getMonth()+1}.${date.getFullYear()}`;
+
+                    div.innerHTML += `
+                    <div class="col-12 my-2 border rounded py-2 px-4">
+                        <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+                            <div class="pe-3">
+                                <h6 class="mb-0"><span class="text-secondary">Naziv:</span> ${ad.ad_name} | <span class="text-secondary">Kategorija:</span> ${ad.category_name} | <span class="text-secondary">Oglas zapraćen:</span> ${dateString}</h6>
+                            </div>
+        
+                            <button data-id="${ad.id}" type="button" class="btn btn-outline-danger unfollowBtn"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                `;
+
+                    addFollowedAdsEventListeners();
+                })
+            }else{
+                div.innerHTML += `
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            Ne pratite ni jedan oglas.
+                        </div>
+                    </div>
+                `;
+            }
+        },
+        error: function (err){
+            console.log(err)
+        }
+    })
 }
 
 
@@ -266,5 +337,31 @@ const addPaginationEventListeners = () => {
         const categoryId = document.getElementById("ddlCategory").value;
         const sort = $("#ddlSort").val();
         fetchAjaxCall(page,categoryId,sort);
+    })
+}
+
+const addFollowedAdsEventListeners = () => {
+    $(".unfollowBtn").on('click', function (e){
+        let id = e.target.dataset.id;
+        if(!id){
+            id = e.target.parentElement.dataset.id;
+        }
+
+        $.ajax({
+            url: 'models/ads/follow.php',
+            method: 'POST',
+            dataType: 'JSON',
+            data: {
+                adId:id,
+                isFollowed: false
+            },
+            success: function (res){
+                console.log(res)
+                fetchAndPrintFollowedAds();
+            },
+            error: function (err){
+                console.log(err)
+            }
+        })
     })
 }

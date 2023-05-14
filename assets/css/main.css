@@ -57,6 +57,9 @@ body{
 .icons-nav i:hover{
     color: dodgerblue;
 }
+.link-btn:hover{
+    color: white !important;
+}
 
 /* ADS PAGE */
 #tbSearch{

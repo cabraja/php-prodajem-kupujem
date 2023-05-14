@@ -1,4 +1,6 @@
 <?php
+require_once "config.php";
+
 define("SERVER","localhost");
 define("DATABASE","praktikumphp");
 define("USERNAME","root");

@@ -35,6 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 if($logAttempt){
                     $_SESSION['user'] = $logAttempt;
                     $response = ['response' => 'Uspesno logovanje', 'redirect' => 1];
+                    logLogin($logAttempt->username,$logAttempt->email);
                     echo json_encode($response);
                 }else{
                     $response = ['response' => 'Pogresna lozinka.', 'redirect' => 0];
