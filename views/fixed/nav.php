@@ -56,7 +56,7 @@
                 <?php
                 if(isset($_SESSION['user'])):
                 ?>
-                    <a href="index.php?page=dashboard" class="btn btn-outline-dark link-btn me-3">Admin Panel</a>
+                    <a href="index.php?page=dashboardHome" class="btn btn-outline-dark link-btn me-3">Admin Panel</a>
                 <?php
                 endif;
                 ?>

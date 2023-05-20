@@ -190,4 +190,14 @@
         $prepare->execute([$id_user]);
         return $prepare->fetchAll();
     }
+
+//    ADMIN PANEL
+
+    function getUsers(){
+        global $conn;
+
+        $query = "SELECT u.id,username,email,phone,created_at, r.role FROM users u INNER JOIN roles r ON u.id_role=r.id";
+        return $conn->query($query)->fetchAll();
+
+    }
 ?>
