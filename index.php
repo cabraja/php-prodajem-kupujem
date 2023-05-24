@@ -31,6 +31,15 @@
             case 'dashboardUsers':
                 if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/dashboardUsers.php');
                 else include ('views/pages/login.php');break;
+            case 'dashboardAds':
+                if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/dashboardAds.php');
+                else include ('views/pages/login.php');break;
+            case 'dashboardCategories':
+                if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/dashboardCategories.php');
+                else include ('views/pages/login.php');break;
+            case 'editCategory':
+                if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/editCategory.php');
+                else include ('views/pages/login.php');break;
             default: include ('views/pages/home.php');
         }
     }else{

@@ -5,6 +5,9 @@
 ?>
 <div class="container my-4">
 
+    <div class="alert alert-info alert-animation" id="usersAlert" role="alert" style="display: none">
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -17,7 +20,7 @@
             <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="usersTable">
         <?php
         foreach ($users as $u):
         ?>
@@ -28,7 +31,7 @@
                 <td><?=$u->phone?></td>
                 <td><?=$u->role?></td>
                 <td><?=date('j.n.Y',strtotime($u->created_at))?></td>
-                <td><button type="button btnDeleteUser" data-id="<?=$u->id?>" class="btn btn-danger">Obriši</button></td>
+                <td><button type="button" data-id="<?=$u->id?>" class="btn btn-danger btnDeleteUser">Obriši</button></td>
             </tr>
         <?php
             endforeach;
@@ -36,3 +39,5 @@
         </tbody>
     </table>
 </div>
+
+<script src="assets/js/admin.js"></script>

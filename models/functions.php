@@ -11,15 +11,14 @@
 //    LOGS
     function logPageVisit($page){
         $ip = $_SERVER['REMOTE_ADDR'];
-        $date = date("d. m. Y. h:i:s");
-        $time = time();
+        $date = time();
         $user = "Unauthorized user";
 
         if(isset($_SESSION['user'])){
             $user = $_SESSION['user']->role;
         }
 
-        $data = $page." | ".$date." | ".$ip." | ".$user."\n";
+        $data = $page."|".$date."|".$ip."|".$user."\n";
 
         $file = fopen(LOG_VISITS, "a");
         $write = fwrite($file, $data);
@@ -200,4 +199,60 @@
         return $conn->query($query)->fetchAll();
 
     }
+
+    function deleteUser($id){
+        global $conn;
+
+        $query = "DELETE FROM users WHERE id=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$id]);
+    }
+
+    function getAdsAdmin(){
+        global $conn;
+
+        $query = "SELECT a.id,ad_name,price,image_name,description,(a.created_at) as date,c.category_name,u.username,u.email,u.phone,u.created_at FROM ads a INNER JOIN categories c ON a.id_category = c.id INNER JOIN users u ON a.id_user = u.id";
+        return $conn->query($query)->fetchAll();
+    }
+    function deleteAd($id){
+        global $conn;
+
+        $query = "DELETE FROM ads WHERE id=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$id]);
+    }
+
+    function getCategoriesAdmin(){
+        global $conn;
+
+        $query = "SELECT c.id,c.category_name,COUNT(a.id_category) as adCount FROM categories c LEFT JOIN  ads a ON c.id = a.id_category GROUP BY c.category_name";
+        return $conn->query($query)->fetchAll();
+    }
+
+    function checkCategoryCount($id){
+        global $conn;
+
+        $query = "SELECT c.id,COUNT(a.id_category) as adCount FROM categories c LEFT JOIN  ads a ON c.id = a.id_category GROUP BY c.category_name HAVING c.id=?";
+        $prepare = $conn->prepare($query);
+        $prepare->execute([$id]);
+        return $prepare->fetch();
+    }
+    function deleteCategory($id){
+        global $conn;
+
+        $query = "DELETE FROM categories WHERE id=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$id]);
+    }
+
+    function getCategory($id){
+        global $conn;
+
+        $query = "SELECT * FROM categories WHERE id=?";
+        $prepare = $conn->prepare($query);
+        $prepare->execute([$id]);
+        return $prepare->fetch();
+    }
+
+
 ?>
