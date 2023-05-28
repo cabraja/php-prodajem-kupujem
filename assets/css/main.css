@@ -61,6 +61,11 @@ body{
     color: white !important;
 }
 
+.testimonials .card-text i{
+    margin-right: 4px;
+}
+
+
 /* ADS PAGE */
 #tbSearch{
     border-top-right-radius: 0px !important;
@@ -130,3 +135,10 @@ body{
         padding-right: 30px;
     }
 }
+@media only screen and (max-width: 992px){
+    #landing #landing-content{
+        width: 100%;
+    }
+}
+
+

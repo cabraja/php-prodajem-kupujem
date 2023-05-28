@@ -5,6 +5,10 @@ include ("views/fixed/adminNav.php");
 $file = fopen("data/pageVisits.txt","r");
 $fileData = file("data/pageVisits.txt");
 
+$fileLogin = fopen("data/logins.txt","r");
+$fileLoginData = file("data/logins.txt");
+
+
 $arrPages = array();
 $arrCount =array();
 
@@ -55,6 +59,19 @@ foreach ($fileData as $data){
     if($newPage){
         array_push($arrPagesPercent, $page);
         array_push($arrCountPercent, 1);
+    }
+}
+
+$logCount = 0;
+
+//BROJ LOGOVANJA
+foreach ($fileLoginData as $data){
+    $login = explode("|", $data);
+    $time = intval($login[2]);
+    $time_now = time();
+
+    if(($time_now -$time) < 86400){
+        $logCount++;
     }
 }
 
@@ -121,5 +138,10 @@ foreach ($fileData as $data){
         </tbody>
     </table>
 
+    <br />
+
+    <h2 class="fw-bold">Broj logovanja (zadnja 24 sata)</h2>
+    <hr />
+    <p class="fs-4"><?=$logCount?> logovanja</p>
 </div>
 

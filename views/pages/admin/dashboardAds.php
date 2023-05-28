@@ -31,6 +31,7 @@ $ads = getAdsAdmin();
                 <td><?=date('j.n.Y',strtotime($a->date))?></td>
                 <td><?=$a->category_name?></td>
                 <td><?=$a->username?></td>
+                <td><a href="index.php?page=editAd&id=<?=$a->id?>" class="btn btn-info text-white">Izmeni</a></td>
                 <td><button type="button" data-id="<?=$a->id?>" class="btn btn-danger btnDeleteAd">Obriši</button></td>
             </tr>
         <?php

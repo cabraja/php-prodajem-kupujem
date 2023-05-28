@@ -23,6 +23,8 @@
             case 'profile':
                 if(isset($_SESSION['user'])) include ('views/pages/profile.php');
                 else include ('views/pages/login.php');break;
+            case 'author':
+                include ('views/pages/author.php');break;
             case 'ad':
                 include ('views/pages/singleAd.php');break;
             case 'dashboardHome':
@@ -39,6 +41,9 @@
                 else include ('views/pages/login.php');break;
             case 'editCategory':
                 if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/editCategory.php');
+                else include ('views/pages/login.php');break;
+            case 'editAd':
+                if(isset($_SESSION['user']) && $_SESSION['user']->role=='Admin') include('views/pages/admin/editAd.php');
                 else include ('views/pages/login.php');break;
             default: include ('views/pages/home.php');
         }

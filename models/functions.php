@@ -28,9 +28,9 @@
     }
 
     function logLogin($username, $email){
-        $date = date("d. m. Y. h:i:s");
+        $date = time();
 
-        $data = $username." | ".$email." | ".$date."\n";
+        $data = $username."|".$email."|".$date."\n";
 
         $file = fopen(LOG_LOGINS, "a");
         $write = fwrite($file, $data);
@@ -150,7 +150,7 @@
     function getAd($id){
         global $conn;
 
-        $query = "SELECT a.id,ad_name,price,image_name,description,a.created_at,c.category_name,u.username,u.email,u.phone,u.created_at FROM ads a INNER JOIN categories c ON a.id_category = c.id INNER JOIN users u ON a.id_user = u.id WHERE a.id = :id";
+        $query = "SELECT a.id,ad_name,price,image_name,description,a.created_at,c.category_name,u.username,u.email,u.phone,u.created_at,c.id as catID FROM ads a INNER JOIN categories c ON a.id_category = c.id INNER JOIN users u ON a.id_user = u.id WHERE a.id = :id";
 
         $prepare = $conn->prepare($query);
         $prepare->bindParam(":id",$id);
@@ -254,5 +254,20 @@
         return $prepare->fetch();
     }
 
+    function editCategory($id,$name){
+        global $conn;
+
+        $query = "UPDATE categories SET category_name=? WHERE id=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$name,$id]);
+    }
+
+    function editAd($id,$name,$price,$desc,$categoryId){
+        global $conn;
+
+        $query = "UPDATE ads SET ad_name=?,price=?,description=?,id_category=? WHERE id=?";
+        $prepare = $conn->prepare($query);
+        return $prepare->execute([$name,$price,$desc,$categoryId,$id]);
+    }
 
 ?>

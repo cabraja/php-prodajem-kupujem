@@ -8,3 +8,46 @@
         </a>
     </div>
 </div>
+
+<div class="container testimonials my-5">
+
+    <h2 class="fw-bold text-center">Iskustva naših korisnika</h2>
+
+    <div class="row  mt-1">
+        <div class="col-12 col-md-4 my-3">
+            <div class="card shadow" >
+                <div class="card-body">
+                    <h5 class="card-title">Milan</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Registrovan pre 3 meseca</h6>
+                    <hr />
+                    <p class="card-text">Koristim sajt Prodajem Kupujem već nekoliko meseci i veoma sam zadovoljan. Jednostavno sam se registrovao i postavio oglas za prodaju svog polovnog mobilnog telefona. U roku od nekoliko sati sam dobio nekoliko ponuda i vrlo brzo uspeo da prodam telefon po željenoj ceni.</p>
+                    <p class="card-text text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4 my-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Lenka</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Registrovana pre 6 meseci</h6>
+                    <hr />
+                    <p class="card-text">Kao redovan korisnik sajta Prodajem Kupujem, mogu reći da sam vrlo zadovoljan uslugama koje pruža. Nedavno sam odlučio da kupim polovni bicikl i pretraživanje oglasa je bilo veoma jednostavno. Sajt ima dobru organizaciju kategorija i mogućnost filtriranja oglasa prema mojim preferencijama.</p>
+                    <p class="card-text text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star-half-stroke"></i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4 my-3">
+            <div class="card shadow" >
+                <div class="card-body">
+                    <h5 class="card-title">Miljan</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Registrovan pre 2 meseca</h6>
+                    <hr />
+                    <p class="card-text">Moj prvi put koristeći sajt Prodajem Kupujem bio je fantastičan. Bila sam pomalo skeptična zbog online kupovine polovnih stvari, ali sam se odlučila da probam. Oduševila sam se velikim izborom oglasa i raznovrsnošću proizvoda koji su bili dostupni. Pronašla sam tačno ono što sam tražila - polovan laptop u odličnom stanju po veoma povoljnoj ceni. </p>
+                    <p class="card-text text-warning"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
